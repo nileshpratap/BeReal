@@ -50,7 +50,8 @@ export const login = async (req, res) => {
       return res.status(400).json({ msg: "Invalid Credentials." });
     }
     // user matched, send jwt
-    const token = jwt.json({ id: user._id }, process.env.JWT_SECRET);
+
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
     delete user.password;
     return res.status(200).json({ token, user });
   } catch (err) {

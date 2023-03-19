@@ -138,7 +138,7 @@ export const users = [
     impressions: 82970,
     createdAt: 1369908044,
     updatedAt: 1359322268,
-    __v: 00,
+    __v: 0,
   },
 ];
 

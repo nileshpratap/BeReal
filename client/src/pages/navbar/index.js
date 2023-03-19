@@ -31,7 +31,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
-  console.log("asdf", user);
+  // console.log("asdf", user);
   const isnonMobileScreens = useMediaQuery("(min-width: 1000px");
   const theme = useTheme();
   const neutralLight = theme.palette.light;
