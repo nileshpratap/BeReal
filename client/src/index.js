@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import authReducer from "./state";
 import { configureStore } from "@reduxjs/toolkit";
-import { Provider } from "react";
+import { Provider } from "react-redux";
 import {
   persistStore,
   persistReducer,
@@ -17,11 +17,11 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { PersistGate } from "redux-persist/integration/react";
-import persistReducer from "redux-persist/es/persistReducer";
+// import persistReducer from "redux-persist/es/persistReducer";
 
 // store user info in local storage
 const persistConfig = { key: "root", storage, version: 1 };
-const persistReducer = persistReducer(persistConfig, authReducer);
+const persistedReducer = persistReducer(persistConfig, authReducer);
 const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
@@ -34,11 +34,11 @@ const store = configureStore({
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <Provider>
-      <PersistGate loading={null} persistor={persistStore(store)}>
-        <App />
-      </PersistGate>
-    </Provider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistStore(store)}>
+      <App />
+    </PersistGate>
+  </Provider>
+  // </React.StrictMode>
 );
