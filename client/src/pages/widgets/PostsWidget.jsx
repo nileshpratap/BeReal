@@ -63,6 +63,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
             likes={likes}
             comments={comments}
             isProfile={isProfile}
+            isShared={false}
           />
         )
       )}

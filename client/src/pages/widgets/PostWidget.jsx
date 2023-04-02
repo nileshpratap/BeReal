@@ -23,6 +23,7 @@ const PostWidget = ({
   likes,
   comments,
   isProfile,
+  isShared = false,
 }) => {
   const [isComments, setIsComments] = useState(false);
   const dispatch = useDispatch();
@@ -48,6 +49,12 @@ const PostWidget = ({
     dispatch(setPost({ post: updatedPost }));
   };
 
+  const ShareLink = async () => {
+    const shareLink = `http://localhost:3000/posts/${postId}`;
+    navigator.clipboard.writeText(shareLink);
+    window.alert("Link copied! Share it.");
+  };
+
   return (
     <WidgetWrapper m="2rem 0">
       {!isProfile ? (
@@ -56,6 +63,7 @@ const PostWidget = ({
           name={name}
           subtitle={location}
           userPicturePath={userPicturePath}
+          isShared={isShared}
         />
       ) : null}
       <Typography color={main} sx={{ mt: "1rem" }}>
@@ -92,7 +100,7 @@ const PostWidget = ({
           </FlexBetween>
         </FlexBetween>
 
-        <IconButton>
+        <IconButton onClick={ShareLink}>
           <ShareOutlined />
         </IconButton>
       </FlexBetween>

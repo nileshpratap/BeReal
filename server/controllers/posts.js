@@ -36,6 +36,17 @@ export const getFeedPosts = async (req, res) => {
 };
 
 // read
+export const getPost = async (req, res) => {
+  try {
+    const { postId } = req.params;
+    const post = await Post.findById(postId);
+    console.log("post found");
+    res.status(200).json(post);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+// read
 export const getUserPosts = async (req, res) => {
   try {
     const { userId } = req.params;

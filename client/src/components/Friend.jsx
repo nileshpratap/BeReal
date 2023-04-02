@@ -6,7 +6,13 @@ import { setFriends } from "../state";
 import FlexBetween from "./FlexBetween";
 import UserImage from "./UserImage";
 
-const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
+const Friend = ({
+  friendId,
+  name,
+  subtitle,
+  userPicturePath,
+  isShared = false,
+}) => {
   const dispatch = useDispatch();
   const { _id } = useSelector((state) => state.user);
   const navigate = useNavigate();
@@ -66,16 +72,18 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
         </Box>
       </FlexBetween>
       {/* {_id !== friendId && ( */}
-      <IconButton
-        onClick={() => patchFriend()}
-        sx={{ backgroundColor: primaryLight, p: "0.6rem" }}
-      >
-        {isFriend ? (
-          <PersonRemoveOutlined sx={{ color: primaryDark }} />
-        ) : (
-          <PersonAddOutlined sx={{ color: primaryDark }} />
-        )}
-      </IconButton>
+      {!isShared && (
+        <IconButton
+          onClick={() => patchFriend()}
+          sx={{ backgroundColor: primaryLight, p: "0.6rem" }}
+        >
+          {isFriend ? (
+            <PersonRemoveOutlined sx={{ color: primaryDark }} />
+          ) : (
+            <PersonAddOutlined sx={{ color: primaryDark }} />
+          )}
+        </IconButton>
+      )}
       {/* )} */}
     </FlexBetween>
   );

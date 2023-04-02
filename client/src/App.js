@@ -3,6 +3,7 @@ import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/homePage";
 import LoginPage from "./pages/loginPage";
 import Profilepage from "./pages/profilePage";
+import Post from "./pages/post";
 import { useState } from "react";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
@@ -27,6 +28,7 @@ function App() {
               <Route path="/showlist" element={<PeopleListWidget />} />
               <Route path="/home" element={<HomePage />} />
               <Route path="/profile/:userId" element={<Profilepage />} />
+              <Route path="/posts/:postId" element={<Post />} />
             </Routes>
           </CssBaseline>
         </ThemeProvider>
