@@ -10,6 +10,28 @@ export const getUser = async (req, res) => {
     res.status(404).json({ message: err.message });
   }
 };
+export const getUsers = async (req, res) => {
+  try {
+    const { input } = req.params;
+    const [firstName, lastName] = req.params.input.split(" ");
+    console.log(firstName, lastName);
+
+    // const regex1 = new RegExp(firstName, "i");
+    // const regex2 = new RegExp(lastName, "i");
+    const result = await User.find({
+      $or: [
+        { firstName: firstName },
+        { lastName: lastName },
+        { firstName: lastName },
+        { lastName: firstName },
+      ],
+    });
+    console.log(result);
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
 
 export const getUserFriends = async (req, res) => {
   try {

@@ -11,6 +11,7 @@ import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
 import Navbar from "./pages/navbar";
 import { Login } from "@mui/icons-material";
+import PeopleListWidget from "./pages/widgets/PeopleListWidget";
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -23,6 +24,7 @@ function App() {
           <CssBaseline>
             <Routes>
               <Route path="/" element={<LoginPage />} />
+              <Route path="/showlist" element={<PeopleListWidget />} />
               <Route path="/home" element={<HomePage />} />
               <Route path="/profile/:useId" element={<Profilepage />} />
             </Routes>

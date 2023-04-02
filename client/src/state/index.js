@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  input: "",
   mode: "light",
   user: null,
   token: null,
@@ -11,6 +12,9 @@ export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    setInputText: (state, action) => {
+      state.input = action.payload.input;
+    },
     setMode: (state) => {
       state.mode = state.mode === "light" ? "dark" : "light";
     },
@@ -42,6 +46,13 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setMode, setLogin, setLogout, setFriends, setPosts, setPost } =
-  authSlice.actions;
+export const {
+  setInputText,
+  setMode,
+  setLogin,
+  setLogout,
+  setFriends,
+  setPosts,
+  setPost,
+} = authSlice.actions;
 export default authSlice.reducer;
