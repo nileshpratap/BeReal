@@ -26,7 +26,7 @@ function App() {
               <Route path="/" element={<LoginPage />} />
               <Route path="/showlist" element={<PeopleListWidget />} />
               <Route path="/home" element={<HomePage />} />
-              <Route path="/profile/:useId" element={<Profilepage />} />
+              <Route path="/profile/:userId" element={<Profilepage />} />
             </Routes>
           </CssBaseline>
         </ThemeProvider>

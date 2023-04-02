@@ -26,6 +26,7 @@ import WidgetWrapper from "../../components/WidgetWrapper";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "../../state";
+import { useParams } from "react-router-dom";
 
 const MyPostWidget = ({ picturePath }) => {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ const MyPostWidget = ({ picturePath }) => {
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   const mediumMain = palette.neutral.mediumMain;
   const medium = palette.neutral.medium;
+  const { userId } = useParams();
 
   const handlePost = async () => {
     const formData = new FormData();
@@ -53,9 +55,18 @@ const MyPostWidget = ({ picturePath }) => {
       headers: { Authorization: `Bearer ${token}` },
       body: formData,
     });
-    const posts = await response.json();
+    let posts = await response.json();
     console.log(posts);
-    dispatch(setPosts({ posts }));
+
+    if (!userId) {
+      console.log("Hii");
+      dispatch(setPosts({ posts }));
+    } else {
+      console.log("akdfj");
+      posts = posts.filter((post) => post["userId"] === userId);
+      dispatch(setPosts({ posts }));
+    }
+
     setImage(null);
     setPost("");
   };

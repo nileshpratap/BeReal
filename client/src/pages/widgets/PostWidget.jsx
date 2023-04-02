@@ -22,6 +22,7 @@ const PostWidget = ({
   userPicturePath,
   likes,
   comments,
+  isProfile,
 }) => {
   const [isComments, setIsComments] = useState(false);
   const dispatch = useDispatch();
@@ -49,12 +50,14 @@ const PostWidget = ({
 
   return (
     <WidgetWrapper m="2rem 0">
-      <Friend
-        friendId={postUserId}
-        name={name}
-        subtitle={location}
-        userPicturePath={userPicturePath}
-      />
+      {!isProfile ? (
+        <Friend
+          friendId={postUserId}
+          name={name}
+          subtitle={location}
+          userPicturePath={userPicturePath}
+        />
+      ) : null}
       <Typography color={main} sx={{ mt: "1rem" }}>
         {description}
       </Typography>
