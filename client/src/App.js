@@ -13,11 +13,8 @@ import { themeSettings } from "./theme";
 import Navbar from "./pages/navbar";
 import { Login } from "@mui/icons-material";
 import PeopleListWidget from "./pages/widgets/PeopleListWidget";
-import dotenv from "dotenv";
 
 function App() {
-  dotenv.config();
-
   const mode = useSelector((state) => state.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   console.log("hi");
