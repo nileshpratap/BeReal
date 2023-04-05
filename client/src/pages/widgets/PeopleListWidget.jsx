@@ -11,10 +11,13 @@ const PeopleListWidget = () => {
   const [people, setPeople] = useState([]);
   const input = useSelector((state) => state.input);
   const getPeople = async () => {
-    const response = await fetch(`http://localhost:3001/users/find/${input}`, {
-      method: "GET",
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_BASE_URL}/users/find/${input}`,
+      {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
     const data = await response.json();
     setPeople(data);
   };

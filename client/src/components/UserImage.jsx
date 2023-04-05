@@ -9,7 +9,7 @@ const UserImage = ({ image, size = "50px" }) => {
         height={size}
         alt="user"
         crossOrigin="anonymous"
-        src={`http://localhost:3001/assets/${image}`}
+        src={`${process.env.REACT_APP_BASE_URL}/assets/${image}`}
       />
     </Box>
   );

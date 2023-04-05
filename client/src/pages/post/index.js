@@ -14,10 +14,13 @@ function Post() {
 
   useEffect(() => {
     async function fetchPost() {
-      const response = await fetch(`http://localhost:3001/posts/${postId}`, {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_BASE_URL}/posts/${postId}`,
+        {
+          method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       const postData = await response.json();
       setPost(postData);
     }
