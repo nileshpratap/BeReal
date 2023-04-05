@@ -4,7 +4,15 @@ import {
   FavoriteOutlined,
   ShareOutlined,
 } from "@mui/icons-material";
-import { Box, Divider, IconButton, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Divider,
+  IconButton,
+  Typography,
+  useTheme,
+  Button,
+  TextField,
+} from "@mui/material";
 import FlexBetween from "../../components/FlexBetween";
 import Friend from "../../components/Friend";
 import WidgetWrapper from "../../components/WidgetWrapper";
@@ -35,6 +43,38 @@ const PostWidget = ({
   const { palette } = useTheme();
   const main = palette.neutral.main;
   const primary = palette.primary.main;
+
+  const [stateComments, setstateComments] = useState(comments);
+
+  const [commentText, setCommentText] = useState("");
+
+  const postComment = async (e) => {
+    e.preventDefault();
+    try {
+      // axios post comment
+      if (commentText) await sendComment(commentText);
+    } catch (error) {
+      alert(error);
+    }
+  };
+
+  const sendComment = async (commentText) => {
+    const response = await fetch(
+      `http://localhost:3001/posts/addcomment/${postId}`,
+      {
+        method: "PATCH",
+        headers: { Authorization: `Bearer ${token}` },
+        "Content-Type": "application/json",
+        body: JSON.stringify({ userId: loggedInUserId, comment: commentText }),
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Failed to save comment");
+    } else {
+      setstateComments([...stateComments, commentText]);
+      setCommentText("");
+    }
+  };
 
   const patchLike = async () => {
     const response = await fetch(`http://localhost:3001/posts/${postId}/like`, {
@@ -104,18 +144,40 @@ const PostWidget = ({
           <ShareOutlined />
         </IconButton>
       </FlexBetween>
+
       {isComments && (
-        <Box mt="0.5rem">
-          {comments.map((comment, i) => (
-            <Box key={`${name}-${i}`}>
-              <Divider />
-              <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
-                {comment}
-              </Typography>
-            </Box>
-          ))}
-          <Divider />
-        </Box>
+        <>
+          <Box mt="0.5rem" display="flex">
+            <form onSubmit={postComment} style={{ flex: 1 }}>
+              <TextField
+                id="comment-input"
+                label="Add a comment"
+                fullWidth
+                value={commentText}
+                onChange={(e) => setCommentText(e.target.value)}
+              />
+            </form>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={postComment}
+              sx={{ ml: 1 }}
+            >
+              POST
+            </Button>
+          </Box>
+          <Box mt="0.5rem">
+            {stateComments.map((comment, i) => (
+              <Box key={`${name}-${i}`}>
+                <Divider />
+                <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
+                  {comment}
+                </Typography>
+              </Box>
+            ))}
+            <Divider />
+          </Box>
+        </>
       )}
     </WidgetWrapper>
   );

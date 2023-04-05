@@ -82,3 +82,16 @@ export const likePost = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+export const addComment = async (req, res) => {
+  try {
+    const { userId, comment } = req.body;
+    const { postId } = req.params;
+    console.log("Hi");
+    const post = await Post.findById(postId);
+    post.comments.push(comment); // add new comment to array
+    await post.save(); // save changes to database
+    res.status(200).json({ data: post.comments });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
