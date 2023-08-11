@@ -26,7 +26,7 @@ const Friend = ({
   const medium = palette.neutral.medium;
 
   const isFriend = friends.find((friend) => friend._id === friendId);
-  console.log("adssssfddddddddddddddddddddddddddddddddddddd", typeof friends);
+  // console.log("adssssfddddddddddddddddddddddddddddddddddddd", typeof friends);
 
   const patchFriend = async () => {
     const response = await fetch(

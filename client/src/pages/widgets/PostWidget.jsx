@@ -63,8 +63,10 @@ const PostWidget = ({
       `${process.env.REACT_APP_BASE_URL}/posts/addcomment/${postId}`,
       {
         method: "PATCH",
-        headers: { Authorization: `Bearer ${token}` },
-        "Content-Type": "application/json",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json", // Correct placement of Content-Type header
+        },
         body: JSON.stringify({ userId: loggedInUserId, comment: commentText }),
       }
     );

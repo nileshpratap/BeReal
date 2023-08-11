@@ -86,7 +86,7 @@ export const addComment = async (req, res) => {
   try {
     const { userId, comment } = req.body;
     const { postId } = req.params;
-    console.log("Hi");
+    console.log(req.body);
     const post = await Post.findById(postId);
     post.comments.push(comment); // add new comment to array
     await post.save(); // save changes to database
